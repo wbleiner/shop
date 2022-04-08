@@ -7,6 +7,7 @@ import 'package:shop/models/product_list.dart';
 class ProductGrid extends StatelessWidget {
   final bool showFavoriteOnly;
 
+  // ignore: use_key_in_widget_constructors
   const ProductGrid(this.showFavoriteOnly);
 
   @override
