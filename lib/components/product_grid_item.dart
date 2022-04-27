@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/exceptions/http_exceptions.dart';
+import 'package:shop/models/auth_model.dart';
 import 'package:shop/models/cart.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/utils/app_routes.dart';
@@ -12,6 +13,7 @@ class ProductGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+    final auth = Provider.of<Auth>(context, listen: false);
 
     final messenger = ScaffoldMessenger.of(context);
 
@@ -36,7 +38,10 @@ class ProductGridItem extends StatelessWidget {
             builder: (ctx, product, _) => IconButton(
               onPressed: () async {
                 try {
-                  await product.toggleFavorite();
+                  await product.toggleFavorite(
+                    auth.token ?? '',
+                    auth.userId ?? '',
+                  );
                 } on HttpException catch (error) {
                   messenger.showSnackBar(
                     SnackBar(
@@ -46,7 +51,8 @@ class ProductGridItem extends StatelessWidget {
                 }
               },
               icon: Icon(
-                  product.isFavorite ? Icons.favorite : Icons.favorite_border),
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              ),
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),

@@ -53,14 +53,16 @@ class CartPage extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    onPressed: () async {
-                      await Provider.of<OrderList>(
-                        context,
-                        listen: false,
-                      ).addOrder(cart);
+                    onPressed: cart.itemsCount <= 0
+                        ? null
+                        : () async {
+                            await Provider.of<OrderList>(
+                              context,
+                              listen: false,
+                            ).addOrder(cart);
 
-                      cart.clear();
-                    },
+                            cart.clear();
+                          },
                   ),
                 ],
               ),
