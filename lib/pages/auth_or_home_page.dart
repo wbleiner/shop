@@ -14,13 +14,13 @@ class AuthOrHomePage extends StatelessWidget {
       future: auth.tryAutoLogin(),
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.error != null) {
-          return Center(
+          return const Center(
             child: Text('Ocorreu um erro!'),
           );
         } else {
-          return auth.isAuth ? ProductsOverviewPage() : AuthPage();
+          return auth.isAuth ? const ProductsOverviewPage() : const AuthPage();
         }
       },
     );
